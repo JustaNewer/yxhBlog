@@ -1,183 +1,350 @@
 <template>
-    <div class="blog-container">
-      <!-- 头部区域 -->
-      <header class="header">
-        <h1>Jack Ye</h1>
-        <p class="subtitle">Personal Blog & Portfolio</p>
-      </header>
-  
-      <!-- 导航栏 -->
-      <nav class="navigation">
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-  
-      <!-- 主要内容区域 -->
-      <main class="main-content">
-        <!-- 最新博客文章 -->
-        <section class="latest-posts">
-          <h2>Latest Posts</h2>
-          <div class="posts-grid">
-            <article class="post-card" v-for="post in posts" :key="post.id">
-              <img :src="post.image" :alt="post.title">
-              <div class="post-content">
-                <h3>{{ post.title }}</h3>
-                <p>{{ post.excerpt }}</p>
-                <span class="date">{{ post.date }}</span>
-              </div>
-            </article>
-          </div>
-        </section>
-      </main>
-  
-      <!-- 页脚 -->
-      <footer class="footer">
-        <p>&copy; 2024 Jack Ye. All rights reserved.</p>
-        <div class="social-links">
-          <a href="#"><i class="fab fa-github"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-      </footer>
+  <div class="blog-container" @mousemove="handleMouseMove">
+    <!-- 顶部部分 -->
+    <div class="BlogTop">
+      <h1 class="header-name">Jack Ye</h1>
+      <div class="button-container">
+        <button class="nav-button" @click="scrollToTop">Home</button>
+        <button class="nav-button" @click="scrollTo('Game')">Game</button>
+        <button class="nav-button" @click="scrollTo('Books')">Books</button>
+        <button class="nav-button" @click="scrollTo('Music')">Music</button>
+      </div>
+      <hr class="divider" />
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: 'MyBlog',
-    data() {
-      return {
-        posts: [
-          {
-            id: 1,
-            title: 'Getting Started with Vue.js',
-            excerpt: 'Learn the basics of Vue.js and how to build your first application.',
-            image: '/images/vue-post.jpg',
-            date: 'March 15, 2024'
-          },
-          // 可以添加更多文章
-        ]
+
+    <div class="CardContainer">
+        <!-- 3D 名字卡片 -->
+      <div id="name-card" class="name-card" :style="cardStyle">
+        <p class="name-label">My name is:</p>
+        <div class="name-container" @mouseenter="hover = true" @mouseleave="hover = false">
+          <h1 class="first-name" :class="{ fade: isFading, hover: hover }">{{ currentName }}</h1>
+        </div>
+        <br>
+        <!-- 添加白色分隔线 -->
+        <hr class="divider2" />
+        <!-- WhoAmI 部分 -->
+        <div class="WhoAmI">
+          <p>I am a:</p>
+          <div class="job-list">
+            <div class="MyJob" @mouseenter="hoverJob = 'Programer'" @mouseleave="hoverJob = null">
+              <p :class="{ hover: hoverJob === 'Programer' }">Programer</p>
+            </div>
+            <div class="MyJob" @mouseenter="hoverJob = 'Web Developer'" @mouseleave="hoverJob = null">
+              <p :class="{ hover: hoverJob === 'Web Developer' }">Web Developer</p>
+            </div>
+            <div class="MyJob" @mouseenter="hoverJob = 'Game Player'" @mouseleave="hoverJob = null">
+              <p :class="{ hover: hoverJob === 'Game Player' }">Game Player</p>
+            </div>
+            <div class="MyJob" @mouseenter="hoverJob = 'College Student'" @mouseleave="hoverJob = null">
+              <p :class="{ hover: hoverJob === 'College Student' }">College Student</p>
+            </div>
+          </div>
+        </div>
+        <!-- 图标部分 -->
+        <div class="icons">
+          <div class="icon google" @mouseenter="stopIconMovement('google')" @mouseleave="startIconMovement('google')"></div>
+          <div class="icon edge" @mouseenter="stopIconMovement('edge')" @mouseleave="startIconMovement('edge')"></div>
+          <div class="icon steam" @mouseenter="stopIconMovement('steam')" @mouseleave="startIconMovement('steam')"></div>
+          <div class="icon ps" @mouseenter="stopIconMovement('ps')" @mouseleave="startIconMovement('ps')"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="GBM">
+      <!-- Game Section -->
+      <div id="Game" class="Game" style="width: 100%; height: 800px; background-color: #1a1a1a">
+        <h2>Game Section</h2>
+      </div>
+
+      <!-- Books Section -->
+      <div id="Books" class="Books" style="width: 100%; height: 800px; background-color: #1a1a1a;">
+        <h2>Books Section</h2>
+      </div>
+
+      <!-- Music Section -->
+      <div id="Music" class="Music" style="width: 100%; height: 800px; background-color: #1a1a1a;">
+        <h2>Music Section</h2>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'MyBlog',
+  data() {
+    return {
+      cardStyle: {
+        transform: 'perspective(1000px) rotateY(0deg) rotateX(0deg)',
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
+      },
+      names: ['Jack Ye', '叶 学 航'], // 定义名字数组
+      currentIndex: 0, // 当前显示的名字索引
+      isFading: false, // 控制淡入淡出效果
+      hover: false, // 控制悬停状态
+      hoverJob: null, // 控制当前悬停的职业
+    };
+  },
+  computed: {
+    currentName() {
+      return this.names[this.currentIndex]; // 根据索引返回当前名字
+    },
+  },
+  methods: {
+    handleMouseMove(event) {
+      const { clientX, clientY } = event;
+      const x = (clientX / window.innerWidth - 0.5) * 40;
+      const y = (clientY / window.innerHeight - 0.5) * -40;
+      this.cardStyle.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
+      this.cardStyle.boxShadow = `0 20px 40px rgba(0, 0, 0, 0.7)`;
+    },
+    switchName() {
+      this.isFading = true; // 开始淡出
+      setTimeout(() => {
+        this.currentIndex = (this.currentIndex + 1) % this.names.length; // 切换名字索引
+        this.isFading = false; // 开始淡入
+      }, 500); // 500ms后切换名字
+    },
+    scrollTo(section) {
+      const element = document.getElementById(section);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' }); // 平滑滚动到目标元素
       }
-    }
+    },
+    scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // 平滑滚动到页面顶部
+    },
+    
+  },
+  mounted() {
+    setInterval(this.switchName, 2000); // 每两秒切换名字
+  },
+};
+</script>
+
+<style scoped>
+.blog-container {
+  width: 100%; /* 设置宽度为100% */
+  height: 100%; /* 设置高度为100% */
+  margin: 0;
+  padding: 0;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column; /* 垂直排列 */
+}
+
+.BlogTop {
+  width: 100%;
+  position: fixed; /* 固定在页面顶部 */
+  top: 0;
+  left: 0;
+  background-color: #0c0a0a; /* 背景色与页面一致 */
+  padding: 20px;
+  z-index: 10; /* 确保在最顶层 */
+  display: flex;
+  align-items: center; /* 垂直居中对齐 */
+}
+
+.header-name {
+  font-size: 2em;
+  color: #ffffff;
+  margin: 0 20px 0 0; /* 右边距 */
+}
+
+.button-container {
+  display: flex;
+  gap: 30px; /* 按钮之间的间距 */
+  padding: 10px; /* 按钮的内边距 */
+}
+
+.nav-button {
+  background-color: #3d3d3d; /* 按钮背景色 */
+  color: #ffffff; /* 按钮文字颜色 */
+  border: none; /* 去掉边框 */
+  border-radius: 20px; /* 圆角矩形 */
+  padding: 10px 20px; /* 按钮内边距 */
+  cursor: pointer; /* 鼠标悬停时显示手型 */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* 添加动画效果 */
+}
+
+.nav-button:hover {
+  background-color: #5d5d5d; /* 悬停时的背景色 */
+  transform: scale(1.05); /* 悬停时放大 */
+}
+
+.nav-button:active {
+  transform: scale(0.95); /* 点击时缩小 */
+}
+
+.name-card {
+  background: #2d2d2d;
+  border-radius: 12px;
+  padding: 80px 40px; /* 增加内边距以扩大卡片 */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  will-change: transform, box-shadow;
+  position: absolute; /* 改为绝对定位 */
+  top: 200px; /* 向下移动50px，确保不被BlogTop覆盖 */
+  left: calc(50% - 225px); /* 水平居中，调整为新宽度的一半 */
+  transform: translate(-50%, -50%); /* 使其真正居中 */
+  width: 450px; /* 设置宽度为450px */
+  height: 450px; /* 设置高度为450px */
+}
+
+.name-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 1.5em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.name-container {
+  height: 58px;
+  display: flex; /* 使用Flexbox布局 */
+  justify-content: center; /* 水平居中对齐 */
+  align-items: center; /* 垂直居中对齐 */
+  margin-top: -30px; /* 向上移动20px，减少与上方文本的距离 */
+  transition: transform 0.3s ease; /* 添加动画效果 */
+}
+
+.first-name {
+  font-size: 2.5em; /* 字体大小，调整为较小的值 */
+  color: orange; /* 字体颜色改为橙色 */
+  margin: 0 5px; /* 控制两个名字之间的间距 */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.5s ease, box-shadow 0.3s ease; /* 添加淡入淡出效果和阴影效果 */
+}
+
+.first-name:hover {
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5); /* 悬浮时添加阴影效果 */
+}
+
+.fade {
+  opacity: 0; /* 淡出效果 */
+}
+
+/* 鼠标悬停时的效果 */
+.name-container:hover {
+  transform: translateY(-20px) scale(1.05); /* 向上移动20px并放大 */
+}
+
+/* 新增的分隔线样式 */
+.divider2 {
+  width: 100%; /* 设置宽度为小卡片的90% */
+  height: 2px; /* 设置高度 */
+  background-color: #ffffff; /* 设置颜色为白色 */
+  border: none; /* 去掉边框 */
+  margin: 10px auto; /* 上下间距，水平居中 */
+  position: relative; /* 相对定位 */
+  z-index: 1;
+}
+
+/* WhoAmI 样式 */
+.WhoAmI {
+  width: 90%; /* 设置宽度与卡片一致 */
+  height: 65%; /* 高度为卡片的剩余高度 */
+  text-align: center; /* 文本居中 */
+  color: #ffffff; /* 字体颜色 */
+  margin-top: 10px; /* 与divider2的间距 */
+  position: absolute; /* 绝对定位 */
+  bottom: 0; /* 靠近卡片底部 */
+}
+
+.WhoAmI p {
+  position: absolute; /* 绝对定位 */
+  top: 10px; /* 距离上边距10px */
+  left: 10px; /* 距离左边距10px */
+  margin: 0; /* 去掉默认的margin */
+  font-size: 1.2em; /* 字体大小 */
+}
+
+.job-list {
+  display: flex;
+  flex-direction: column; /* 垂直排列职业 */
+  align-items: center; /* 水平居中对齐 */
+}
+
+.MyJob {
+  width: 200px;
+  height: 50px; /* 调整高度以适应内容 */
+  margin: 10px 0; /* 添加上下间距 */
+  position: relative; /* 相对定位 */
+  margin-left: 50px; /* 向右移动50px */
+  background: transparent; /* 设置背景为透明 */
+  perspective: 1000px; /* 添加透视效果 */
+}
+
+/* 悬浮效果 */
+.MyJob p {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加动画效果 */
+}
+
+.MyJob:hover p {
+  transform: translateY(-20px) translateZ(10px) rotateY(5deg); /* 向上移动20px并在Z轴上移动10px，轻微旋转 */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7); /* 增加阴影 */
+}
+.GBM{
+  width: 100%;
+  top: 800px;
+  position: absolute;
+}
+
+.icons {
+  position: absolute; /* 绝对定位 */
+  top: 20px; /* 距离卡片顶部20px */
+  left: 50%; /* 水平居中 */
+  transform: translateX(-50%); /* 使其真正居中 */
+  display: flex; /* 使用Flexbox布局 */
+  gap: 20px; /* 图标之间的间距 */
+}
+
+.icon {
+  width: 50px; /* 图标宽度 */
+  height: 50px; /* 图标高度 */
+  border-radius: 50%; /* 圆形图标 */
+  background-size: cover; /* 背景图像覆盖 */
+  animation: float 3s ease-in-out infinite; /* 添加浮动动画 */
+}
+
+.google {
+  top: 200px;
+  background-image: url('/img/google.png'); /* Google 图标 */
+  position: relative;
+}
+
+.edge {
+  background-image: url('/img/edge.png'); /* Edge 图标 */
+}
+
+.steam {
+  background-image: url('/img/steam.png'); /* Steam 图标 */
+}
+.ps{
+  background-image: url('/img/ps.png');
+}
+
+.CardContainer{
+  width: 100%;
+  height: 800px;
+  position: absolute;
+}
+
+
+
+/* 浮动动画 */
+@keyframes float {
+  0% {
+    transform: translateY(0); /* 初始位置 */
   }
-  </script>
-  
-  <style scoped>
-  .blog-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+  50% {
+    transform: translateY(-10px); /* 向上浮动10px */
   }
-  
-  .header {
-    text-align: center;
-    padding: 50px 0;
-    background: #f8f9fa;
-    border-radius: 8px;
-    margin-bottom: 30px;
+  100% {
+    transform: translateY(0); /* 回到初始位置 */
   }
-  
-  .header h1 {
-    font-size: 3em;
-    color: #2c3e50;
-    margin-bottom: 10px;
-  }
-  
-  .subtitle {
-    font-size: 1.2em;
-    color: #666;
-  }
-  
-  .navigation {
-    margin-bottom: 40px;
-  }
-  
-  .navigation ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-  }
-  
-  .navigation a {
-    text-decoration: none;
-    color: #2c3e50;
-    font-weight: 500;
-    font-size: 1.1em;
-    transition: color 0.3s;
-  }
-  
-  .navigation a:hover {
-    color: #42b883;
-  }
-  
-  .latest-posts {
-    margin-bottom: 50px;
-  }
-  
-  .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 20px 0;
-  }
-  
-  .post-card {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
-  }
-  
-  .post-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .post-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .post-content {
-    padding: 20px;
-  }
-  
-  .post-content h3 {
-    margin: 0 0 10px 0;
-    color: #2c3e50;
-  }
-  
-  .date {
-    color: #666;
-    font-size: 0.9em;
-  }
-  
-  .footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 50px;
-    border-top: 1px solid #eee;
-  }
-  
-  .social-links {
-    margin-top: 20px;
-  }
-  
-  .social-links a {
-    margin: 0 10px;
-    color: #2c3e50;
-    font-size: 1.5em;
-    transition: color 0.3s;
-  }
-  
-  .social-links a:hover {
-    color: #42b883;
-  }
-  </style>
+}
+</style>
