@@ -42,10 +42,13 @@
         </div>
         <!-- 图标部分 -->
         <div class="icons">
-          <div class="icon google" @mouseenter="stopIconMovement('google')" @mouseleave="startIconMovement('google')"></div>
-          <div class="icon edge" @mouseenter="stopIconMovement('edge')" @mouseleave="startIconMovement('edge')"></div>
-          <div class="icon steam" @mouseenter="stopIconMovement('steam')" @mouseleave="startIconMovement('steam')"></div>
-          <div class="icon ps" @mouseenter="stopIconMovement('ps')" @mouseleave="startIconMovement('ps')"></div>
+          <div class="track1"></div> <!-- 添加轨道 -->
+          <div class="track2"></div> <!-- 添加轨道 -->
+          <div class="track3"></div> <!-- 添加轨道 -->
+          <div class="icon google" @mouseenter="stopIconMovement('google')" @mouseleave="startIconMovement('google')" style="transform: rotate(0deg) translate(325px) rotate(0deg);"></div>
+          <div class="icon edge" @mouseenter="stopIconMovement('edge')" @mouseleave="startIconMovement('edge')" style="transform: rotate(90deg) translate(325px) rotate(0deg);"></div>
+          <div class="icon steam" @mouseenter="stopIconMovement('steam')" @mouseleave="startIconMovement('steam')" style="transform: rotate(180deg) translate(325px) rotate(0deg);"></div>
+          <div class="icon ps" @mouseenter="stopIconMovement('ps')" @mouseleave="startIconMovement('ps')" style="transform: rotate(270deg) translate(325px) rotate(0deg);"></div>
         </div>
       </div>
     </div>
@@ -114,7 +117,6 @@ export default {
     scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' }); // 平滑滚动到页面顶部
     },
-    
   },
   mounted() {
     setInterval(this.switchName, 2000); // 每两秒切换名字
@@ -191,6 +193,7 @@ export default {
   transform: translate(-50%, -50%); /* 使其真正居中 */
   width: 450px; /* 设置宽度为450px */
   height: 450px; /* 设置高度为450px */
+  z-index: 10; /* 确保在图标上方 */
 }
 
 .name-label {
@@ -298,8 +301,11 @@ export default {
   top: 20px; /* 距离卡片顶部20px */
   left: 50%; /* 水平居中 */
   transform: translateX(-50%); /* 使其真正居中 */
-  display: flex; /* 使用Flexbox布局 */
-  gap: 20px; /* 图标之间的间距 */
+  z-index: -1;
+  gap: 0; /* 图标之间的间距 */
+  width: 58px;
+  height: 58px;
+  z-index: -3;
 }
 
 .icon {
@@ -307,24 +313,38 @@ export default {
   height: 50px; /* 图标高度 */
   border-radius: 50%; /* 圆形图标 */
   background-size: cover; /* 背景图像覆盖 */
-  animation: float 3s ease-in-out infinite; /* 添加浮动动画 */
+  top: 100px;
+  animation: rotate 10s linear infinite;
+  position: relative;
+
 }
 
 .google {
-  top: 200px;
   background-image: url('/img/google.png'); /* Google 图标 */
-  position: relative;
+  animation: rotateGoogle 5s linear infinite; /* 顺时针运动 */
+  animation-duration: 5s;
+  z-index: -1;
 }
 
 .edge {
   background-image: url('/img/edge.png'); /* Edge 图标 */
+  animation: rotateEdge 6s linear infinite; /* 顺时针运动 */
+  animation-duration: 6s;
+  z-index: 1;
 }
 
 .steam {
   background-image: url('/img/steam.png'); /* Steam 图标 */
+  animation: rotateSteam 7s linear infinite; /* 顺时针运动 */
+  animation-duration: 7s;
+  z-index: 2;
 }
-.ps{
-  background-image: url('/img/ps.png');
+
+.ps {
+  background-image: url('/img/ps.png'); /* PS 图标 */
+  animation: rotatePS 8s linear infinite; /* 顺时针运动 */
+  animation-duration: 8s;
+  z-index: 3;
 }
 
 .CardContainer{
@@ -332,19 +352,76 @@ export default {
   height: 800px;
   position: absolute;
 }
+.track1 {
+  position: absolute;
+  width: 600px; /* 直径为500px */
+  height: 600px; /* 直径为500px */
+  border: 2px dashed  #2D2D2D; /* 白色虚线 */
+  border-radius: 50%; /* 圆形 */
+  top :200px; /* 垂直居中 */
+  left: 50%; /* 水平居中 */
+  transform: translate(-50%, -50%); /* 使其真正居中 */
+  z-index: -1; /* 确保在图标下方 */
+}
+
+.track2 {
+  position: absolute;
+  width: 675px; /* 直径为500px */
+  height: 675px; /* 直径为500px */
+  border: 2px dashed rgb(171, 171, 171); /* 白色虚线 */
+  border-radius: 50%; /* 圆形 */
+  top :200px; /* 垂直居中 */
+  left: 50%; /* 水平居中 */
+  transform: translate(-50%, -50%); /* 使其真正居中 */
+  z-index: -1; /* 确保在图标下方 */
+}
+.track3 {
+  position: absolute;
+  width: 750px; /* 直径为500px */
+  height: 750px; /* 直径为500px */
+  border: 2px dashed white; /* 白色虚线 */
+  border-radius: 50%; /* 圆形 */
+  top :200px; /* 垂直居中 */
+  left: 50%; /* 水平居中 */
+  transform: translate(-50%, -50%); /* 使其真正居中 */
+  z-index: -1; /* 确保在图标下方 */
+}
 
 
-
-/* 浮动动画 */
-@keyframes float {
+/* 动画定义 */
+@keyframes rotateGoogle {
   0% {
-    transform: translateY(0); /* 初始位置 */
-  }
-  50% {
-    transform: translateY(-10px); /* 向上浮动10px */
+    transform: rotate(0deg) translate(325px) rotate(0deg); /* 325px 为半径 */
   }
   100% {
-    transform: translateY(0); /* 回到初始位置 */
+    transform: rotate(360deg) translate(325px) rotate(0deg);
+  }
+}
+
+@keyframes rotateEdge {
+  0% {
+    transform: rotate(0deg) translate(325px) rotate(0deg); /* 325px 为半径 */
+  }
+  100% {
+    transform: rotate(360deg) translate(325px) rotate(0deg);
+  }
+}
+
+@keyframes rotateSteam {
+  0% {
+    transform: rotate(0deg) translate(325px) rotate(0deg); /* 325px 为半径 */
+  }
+  100% {
+    transform: rotate(360deg) translate(325px) rotate(0deg);
+  }
+}
+
+@keyframes rotatePS {
+  0% {
+    transform: rotate(0deg) translate(325px) rotate(0deg); /* 325px 为半径 */
+  }
+  100% {
+    transform: rotate(360deg) translate(325px) rotate(0deg);
   }
 }
 </style>
