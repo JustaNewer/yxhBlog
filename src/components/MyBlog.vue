@@ -9,6 +9,7 @@
         <button class="nav-button" @click="scrollTo('Books')">Books</button>
         <button class="nav-button" @click="scrollTo('Music')">Music</button>
         <button class="github-button" @click="goToGitHub"></button>
+        <button class="steam-button" @click="goToSteam"></button>
       </div>
       <hr class="divider" />
     </div>
@@ -42,16 +43,20 @@
           </div>
         </div>
         <!-- 图标部分 -->
-        <div class="icons">
+        
+      </div>
+    </div>
+
+    <div class="tracks">
           <div class="track1"></div> <!-- 添加轨道 -->
           <div class="track2"></div> <!-- 添加轨道 -->
           <div class="track3"></div> <!-- 添加轨道 -->
-          <div class="icon google" @mouseenter="stopIconMovement('google')" @mouseleave="startIconMovement('google')" style="transform: rotate(0deg) translate(325px) rotate(0deg);"></div>
-          <div class="icon edge" @mouseenter="stopIconMovement('edge')" @mouseleave="startIconMovement('edge')" style="transform: rotate(90deg) translate(325px) rotate(0deg);"></div>
-          <div class="icon steam" @mouseenter="stopIconMovement('steam')" @mouseleave="startIconMovement('steam')" style="transform: rotate(180deg) translate(325px) rotate(0deg);"></div>
-          <div class="icon ps" @mouseenter="stopIconMovement('ps')" @mouseleave="startIconMovement('ps')" style="transform: rotate(270deg) translate(325px) rotate(0deg);"></div>
         </div>
-      </div>
+    <div class="icons">
+      <div class="icon google" @mouseenter="stopIconMovement('google')" @mouseleave="startIconMovement('google')" style="transform: rotate(0deg) translate(325px) rotate(0deg);"></div>
+      <div class="icon edge" @mouseenter="stopIconMovement('edge')" @mouseleave="startIconMovement('edge')" style="transform: rotate(90deg) translate(325px) rotate(0deg);"></div>
+      <div class="icon steam" @mouseenter="stopIconMovement('steam')" @mouseleave="startIconMovement('steam')" style="transform: rotate(180deg) translate(325px) rotate(0deg);"></div>
+      <div class="icon ps" @mouseenter="stopIconMovement('ps')" @mouseleave="startIconMovement('ps')" style="transform: rotate(270deg) translate(325px) rotate(0deg);"></div>
     </div>
 
     <div class="GBM">
@@ -121,6 +126,9 @@ export default {
     goToGitHub() {
       window.location.href = 'https://github.com/JustaNewer'; // 跳转到 GitHub
     },
+    goToSteam(){
+      window.location.href = 'https://steamcommunity.com/id/gamerjky/';
+    },
   },
   mounted() {
     setInterval(this.switchName, 2000); // 每两秒切换名字
@@ -145,12 +153,12 @@ export default {
   position: fixed; /* 固定在页面顶部 */
   top: 0;
   left: 0;
-  background-color: #0c0a0a; /* 背景色与页面一致 */
+  background-color: #000000; /* 背景色与页面一致 */
   padding: 20px;
   z-index: 10; /* 确保在最顶层 */
   display: flex;
   align-items: center; /* 垂直居中对齐 */
-  z-index: 10;
+  z-index: 20;
 }
 
 .header-name {
@@ -184,6 +192,7 @@ export default {
   transform: scale(0.95); /* 点击时缩小 */
 }
 
+
 .name-card {
   background: #2d2d2d;
   border-radius: 12px;
@@ -198,7 +207,8 @@ export default {
   transform: translate(-50%, -50%); /* 使其真正居中 */
   width: 450px; /* 设置宽度为450px */
   height: 450px; /* 设置高度为450px */
-  z-index: 9; /* 确保在图标上方 */
+  z-index: 10; /* 确保卡片在最上层 */
+  background: rgba(45, 45, 45, 0.9); 
 }
 
 .name-label {
@@ -303,14 +313,14 @@ export default {
 
 .icons {
   position: absolute; /* 绝对定位 */
-  top: 20px; /* 距离卡片顶部20px */
+  top: 200px; /* 距离卡片顶部20px */
   left: 50%; /* 水平居中 */
   transform: translateX(-50%); /* 使其真正居中 */
   z-index: -1;
   gap: 0; /* 图标之间的间距 */
   width: 58px;
   height: 58px;
-  z-index: -3;
+  z-index: 5;
 }
 
 .icon {
@@ -325,24 +335,26 @@ export default {
 }
 
 .google {
+  width: 90px; 
+  height: 90px;
   background-image: url('/img/google.png'); /* Google 图标 */
   animation: rotateGoogle 5s linear infinite; /* 顺时针运动 */
   animation-duration: 5s;
-  z-index: -1;
+
 }
 
 .edge {
   background-image: url('/img/github.png'); /* Edge 图标 */
   animation: rotateEdge 6s linear infinite; /* 顺时针运动 */
   animation-duration: 6s;
-  z-index: 1;
+
 }
 
 .steam {
   background-image: url('/img/steam.png'); /* Steam 图标 */
   animation: rotateSteam 7s linear infinite; /* 顺时针运动 */
   animation-duration: 7s;
-  z-index: 2;
+
   width: 70px; /* 图标宽度 */
   height: 70px;
 }
@@ -351,7 +363,7 @@ export default {
   background-image: url('/img/ps.png'); /* PS 图标 */
   animation: rotatePS 8s linear infinite; /* 顺时针运动 */
   animation-duration: 8s;
-  z-index: 3;
+
 }
 
 .CardContainer{
@@ -394,11 +406,74 @@ export default {
   z-index: -1; /* 确保在图标下方 */
 }
 
+/* 修改 tracks 容器的样式 */
+.tracks {
+  position: absolute;
+  width: 750px;
+  height: 750px;
+  top: 425px; /* 与 name-card 的 top 值保持一致 */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* 修改轨道样式，使其相对于 tracks 容器定位 */
+.track1, .track2, .track3 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.track1 {
+  width: 600px;
+  height: 600px;
+  border: 2px dashed #2D2D2D;
+  z-index: 1;
+}
+
+.track2 {
+  width: 675px;
+  height: 675px;
+  border: 2px dashed rgb(171, 171, 171);
+  z-index: 2;
+}
+
+.track3 {
+  width: 750px;
+  height: 750px;
+  border: 2px dashed white;
+  z-index: 3;
+}
+
+.steam-button {
+  background-image: url('/img/steam2.png'); /* Steam 图标 */
+  background-size: contain;
+  border-radius: 12px;
+  border: none;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 20px;
+  right: 120px; /* GitHub 按钮的右边距为30px，GitHub按钮宽度为60px */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* 鼠标悬停时的效果 */
+.steam-button:hover {
+  transform: scale(1.1); /* 悬停时略微放大 */
+}
+
+/* 鼠标点击时的效果 */
+.steam-button:active {
+  transform: scale(0.95); /* 点击时缩小 */
+}
 
 .github-button{
   background-image: url('/img/github.png');
   background-size: contain;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
   width: 60px;
   height: 60px;
@@ -455,4 +530,6 @@ export default {
     transform: rotate(360deg) translate(325px) rotate(0deg);
   }
 }
+
+
 </style>
