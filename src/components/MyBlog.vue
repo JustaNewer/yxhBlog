@@ -8,6 +8,7 @@
         <button class="nav-button" @click="scrollTo('Game')">Game</button>
         <button class="nav-button" @click="scrollTo('Books')">Books</button>
         <button class="nav-button" @click="scrollTo('Music')">Music</button>
+        <button class="github-button" @click="goToGitHub"></button>
       </div>
       <hr class="divider" />
     </div>
@@ -117,6 +118,9 @@ export default {
     scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' }); // 平滑滚动到页面顶部
     },
+    goToGitHub() {
+      window.location.href = 'https://github.com/JustaNewer'; // 跳转到 GitHub
+    },
   },
   mounted() {
     setInterval(this.switchName, 2000); // 每两秒切换名字
@@ -146,6 +150,7 @@ export default {
   z-index: 10; /* 确保在最顶层 */
   display: flex;
   align-items: center; /* 垂直居中对齐 */
+  z-index: 10;
 }
 
 .header-name {
@@ -193,7 +198,7 @@ export default {
   transform: translate(-50%, -50%); /* 使其真正居中 */
   width: 450px; /* 设置宽度为450px */
   height: 450px; /* 设置高度为450px */
-  z-index: 10; /* 确保在图标上方 */
+  z-index: 9; /* 确保在图标上方 */
 }
 
 .name-label {
@@ -327,7 +332,7 @@ export default {
 }
 
 .edge {
-  background-image: url('/img/edge.png'); /* Edge 图标 */
+  background-image: url('/img/github.png'); /* Edge 图标 */
   animation: rotateEdge 6s linear infinite; /* 顺时针运动 */
   animation-duration: 6s;
   z-index: 1;
@@ -338,6 +343,8 @@ export default {
   animation: rotateSteam 7s linear infinite; /* 顺时针运动 */
   animation-duration: 7s;
   z-index: 2;
+  width: 70px; /* 图标宽度 */
+  height: 70px;
 }
 
 .ps {
@@ -387,6 +394,30 @@ export default {
   z-index: -1; /* 确保在图标下方 */
 }
 
+
+.github-button{
+  background-image: url('/img/github.png');
+  background-size: contain;
+  border-radius: 10px;
+  border: none;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* 鼠标悬停时的效果 */
+.github-button:hover {
+  transform: scale(1.1); /* 悬停时略微放大 */
+}
+
+/* 鼠标点击时的效果 */
+.github-button:active {
+  transform: scale(0.95); /* 点击时缩小 */
+}
 
 /* 动画定义 */
 @keyframes rotateGoogle {
