@@ -15,7 +15,13 @@
     </div>
 
     <div class="CardContainer">
-        <!-- 3D 名字卡片 -->
+      <FloatingDots 
+        :quantity="100"
+        :ease="80"
+        color="#ffffff"
+        class="floating-background"
+      />
+      <!-- 3D 名字卡片 -->
       <div id="name-card" class="name-card" :style="cardStyle">
         <p class="name-label">My name is:</p>
         <div class="name-container" @mouseenter="hover = true" @mouseleave="hover = false">
@@ -51,7 +57,7 @@
           <div class="track1"></div> <!-- 添加轨道 -->
           <div class="track2"></div> <!-- 添加轨道 -->
           <div class="track3"></div> <!-- 添加轨道 -->
-        </div>
+    </div>
     <div class="icons">
       <div class="icon google" @mouseenter="stopIconMovement('google')" @mouseleave="startIconMovement('google')" style="transform: rotate(0deg) translate(325px) rotate(0deg);"></div>
       <div class="icon edge" @mouseenter="stopIconMovement('edge')" @mouseleave="startIconMovement('edge')" style="transform: rotate(90deg) translate(325px) rotate(0deg);"></div>
@@ -79,8 +85,13 @@
 </template>
 
 <script>
+import FloatingDots from './FloatingDots.vue'
+
 export default {
   name: 'MyBlog',
+  components: {
+    FloatingDots
+  },
   data() {
     return {
       cardStyle: {
@@ -101,11 +112,31 @@ export default {
   },
   methods: {
     handleMouseMove(event) {
-      const { clientX, clientY } = event;
-      const x = (clientX / window.innerWidth - 0.5) * 40;
-      const y = (clientY / window.innerHeight - 0.5) * -40;
-      this.cardStyle.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${y}deg)`;
-      this.cardStyle.boxShadow = `0 20px 40px rgba(0, 0, 0, 0.7)`;
+      const card = document.querySelector('.name-card');
+      if (!card) return;
+
+      const rect = card.getBoundingClientRect();
+      const mouseX = event.clientX - rect.left;
+      const mouseY = event.clientY - rect.top;
+      
+      const rotateX = ((mouseY - rect.height / 2) / rect.height) * -5;
+      const rotateY = ((mouseX - rect.width / 2) / rect.width) * 5;
+
+      this.cardStyle = {
+        transform: `
+          perspective(1000px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          scale3d(1.01, 1.01, 1.01)
+        `,
+        transition: 'transform 0.2s ease-out',
+      };
+    },
+    handleMouseLeave() {
+      this.cardStyle = {
+        transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+        transition: 'transform 0.3s ease-out',
+      };
     },
     switchName() {
       this.isFading = true; // 开始淡出
@@ -194,39 +225,53 @@ export default {
 
 
 .name-card {
-  background: #2d2d2d;
-  border-radius: 12px;
-  padding: 80px 40px; /* 增加内边距以扩大卡片 */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: rgba(45, 45, 45, 0.98);
+  border-radius: 20px;
+  padding: 40px;
   text-align: center;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-  will-change: transform, box-shadow;
-  position: absolute; /* 改为绝对定位 */
-  top: 200px; /* 向下移动50px，确保不被BlogTop覆盖 */
-  left: calc(50% - 225px); /* 水平居中，调整为新宽度的一半 */
-  transform: translate(-50%, -50%); /* 使其真正居中 */
-  width: 450px; /* 设置宽度为450px */
-  height: 450px; /* 设置高度为450px */
-  z-index: 10; /* 确保卡片在最上层 */
-  background: rgba(45, 45, 45, 0.9); 
+  position: absolute;
+  top: 200px;
+  left: calc(50% - 225px);
+  width: 450px;
+  height: 450px;
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  position: relative;
 }
 
 .name-label {
+  transform: translateZ(20px);
   position: absolute;
-  top: 10px;
-  left: 10px;
-  font-size: 1.5em;
-  color: #ffffff;
-  margin: 0;
+  top: 30px;
+  left: 30px;
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.name-card:hover .name-label {
+  transform: translateZ(50px);
 }
 
 .name-container {
-  height: 58px;
-  display: flex; /* 使用Flexbox布局 */
-  justify-content: center; /* 水平居中对齐 */
-  align-items: center; /* 垂直居中对齐 */
-  margin-top: -30px; /* 向上移动20px，减少与上方文本的距离 */
-  transition: transform 0.3s ease; /* 添加动画效果 */
+  position: absolute;
+  left: 150px;
+  top: 70px;
+  width: 170px;
+  height: 65px;
+  transform: translateZ(30px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.name-card:hover .name-container:hover {
+  transform: translateZ(80px);
+}
+
+.first-name {
+  transform: translateZ(40px);
+  transition: all 0.3s ease;
 }
 
 .first-name {
@@ -252,16 +297,35 @@ export default {
 
 /* 新增的分隔线样式 */
 .divider2 {
-  width: 100%; /* 设置宽度为小卡片的90% */
-  height: 2px; /* 设置高度 */
-  background-color: #ffffff; /* 设置颜色为白色 */
-  border: none; /* 去掉边框 */
-  margin: 10px auto; /* 上下间距，水平居中 */
-  position: relative; /* 相对定位 */
-  z-index: 1;
+  transform: translateZ(20px);
+  width: 85%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: absolute;
+  top: 130px;
+  left: 30px;
+}
+
+.name-card:hover .divider2 {
+  transform: translateZ(40px);
+  background: linear-gradient(90deg, transparent, rgba(255, 165, 0, 0.3), transparent);
 }
 
 /* WhoAmI 样式 */
+.WhoAmI {
+  transform: translateZ(30px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.name-card:hover .WhoAmI {
+  transform: translateZ(60px);
+}
+
+.WhoAmI p {
+  transform: translateZ(35px);
+  transition: transform 0.3s ease;
+}
+
 .WhoAmI {
   width: 90%; /* 设置宽度与卡片一致 */
   height: 65%; /* 高度为卡片的剩余高度 */
@@ -284,27 +348,39 @@ export default {
   display: flex;
   flex-direction: column; /* 垂直排列职业 */
   align-items: center; /* 水平居中对齐 */
+  transform-style: preserve-3d;
 }
 
 .MyJob {
+  transform: translateZ(40px);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   width: 200px;
   height: 50px; /* 调整高度以适应内容 */
   margin: 10px 0; /* 添加上下间距 */
   position: relative; /* 相对定位 */
   margin-left: 50px; /* 向右移动50px */
   background: transparent; /* 设置背景为透明 */
-  perspective: 1000px; /* 添加透视效果 */
+  perspective: 500px; /* 添加透视效果 */
+}
+
+.name-card:hover .MyJob {
+  transform: translateZ(70px);
 }
 
 /* 悬浮效果 */
 .MyJob p {
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加动画效果 */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  padding: 10px 20px;
+  border-radius: 8px;
 }
 
-.MyJob:hover p {
-  transform: translateY(-20px) translateZ(10px) rotateY(5deg); /* 向上移动20px并在Z轴上移动10px，轻微旋转 */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7); /* 增加阴影 */
+.name-card:hover .MyJob:hover p {
+  transform: translateZ(100px);
+  background:transparent;
+  
+
 }
+
 .GBM{
   width: 100%;
   top: 800px;
@@ -316,11 +392,11 @@ export default {
   top: 200px; /* 距离卡片顶部20px */
   left: 50%; /* 水平居中 */
   transform: translateX(-50%); /* 使其真正居中 */
-  z-index: -1;
+  z-index: 1;
   gap: 0; /* 图标之间的间距 */
   width: 58px;
   height: 58px;
-  z-index: 5;
+  z-index: 1;
 }
 
 .icon {
@@ -331,7 +407,7 @@ export default {
   top: 100px;
   animation: rotate 10s linear infinite;
   position: relative;
-
+  
 }
 
 .google {
@@ -367,9 +443,13 @@ export default {
 }
 
 .CardContainer{
+  perspective: 1000px;
+  transform-style: preserve-3d;
   width: 100%;
   height: 800px;
-  position: absolute;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;  /* 添加此行以确保点不会溢出 */
 }
 .track1 {
   position: absolute;
@@ -379,8 +459,8 @@ export default {
   border-radius: 50%; /* 圆形 */
   top :200px; /* 垂直居中 */
   left: 50%; /* 水平居中 */
-  transform: translate(-50%, -50%); /* 使其真正居中 */
-  z-index: -1; /* 确保在图标下方 */
+  transform: translate(-50%, -50%); /* 使其真正居��� */
+  z-index: -1;
 }
 
 .track2 {
@@ -392,7 +472,7 @@ export default {
   top :200px; /* 垂直居中 */
   left: 50%; /* 水平居中 */
   transform: translate(-50%, -50%); /* 使其真正居中 */
-  z-index: -1; /* 确保在图标下方 */
+  z-index: -2;
 }
 .track3 {
   position: absolute;
@@ -403,7 +483,7 @@ export default {
   top :200px; /* 垂直居中 */
   left: 50%; /* 水平居中 */
   transform: translate(-50%, -50%); /* 使其真正居中 */
-  z-index: -1; /* 确保在图标下方 */
+  z-index: -3;
 }
 
 /* 修改 tracks 容器的样式 */
@@ -414,7 +494,7 @@ export default {
   top: 425px; /* 与 name-card 的 top 值保持一致 */
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
+  z-index: 0;
 }
 
 /* 修改轨道样式，使其相对于 tracks 容器定位 */
@@ -524,12 +604,21 @@ export default {
 
 @keyframes rotatePS {
   0% {
-    transform: rotate(0deg) translate(325px) rotate(0deg); /* 325px 为半径 */
+    transform: rotate(0deg) translate(325px) rotate(0deg); /* 325px 为半 */
   }
   100% {
     transform: rotate(360deg) translate(325px) rotate(0deg);
   }
 }
 
+.floating-background {
+  z-index: 1;
+}
+
+/* 确保 name-card 在浮动点之上 */
+.name-card {
+  z-index: 2;
+  /* ... 其他样式保持不变 ... */
+}
 
 </style>
