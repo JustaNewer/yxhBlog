@@ -67,10 +67,14 @@
 
     <div class="GBM">
       <!-- Game Section -->
-      <div id="Game" class="Game" style="width: 100%; height: 800px; background-color: #1a1a1a">
+      <div id="Game" class="Game" style="width: 100%; height: 1600px; background-color: #1a1a1a">
         <h2>Game Section</h2>
-        <h3>There are some games I played:</h3>
-        <ThreeDCarousel />
+        <h3 style="top: 100px; left: -500px; font-size: 1.5em;">There are some games I played:</h3>
+        <div class="game-content">
+          <ThreeDCarousel />
+          <AnimatedTestimonials class="testimonials-section" />
+        </div>
+
       </div>
 
       <!-- Books Section -->
@@ -89,12 +93,14 @@
 <script>
 import FloatingDots from './FloatingDots.vue'
 import ThreeDCarousel from './ThreeDCarousel.vue'
+import AnimatedTestimonials from './AnimatedTestimonials.vue'
 
 export default {
   name: 'MyBlog',
   components: {
     FloatingDots,
-    ThreeDCarousel
+    ThreeDCarousel,
+    AnimatedTestimonials
   },
   data() {
     return {
@@ -631,12 +637,52 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 30px;
+  background-image: url('/img/psSymbol.jpg');
+  background-repeat: repeat; /* 图片重复 */
+  background-size: 100px; /* 控制重复图片的大小 */
+  position: relative; /* 为遮罩层提供定位上下文 */
+}
+
+/* 添加一个半透明遮罩层，使背景不会影响内容的可读性 */
+.Game::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(26, 26, 26, 0.9); /* 与原背景色相同，但带透明度 */
+  z-index: 1;
+}
+
+/* 确保内容在遮罩层之上 */
+.Game h2, 
+.Game h3, 
+.Game > * {
+  position: relative;
+  z-index: 2;
 }
 
 .Game h2 {
   font-size: 2.5em;
   color: #ffffff;
   margin-bottom: 20px;
+}
+
+.game-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px; /* 控制轮播图和testimonials之间的距离 */
+}
+
+.testimonials-section {
+  width: 50%;
+  height: 300px;
+  align-self: flex-start; /* 靠左对齐 */
+  margin-left: 50px; /* 距离左边界50px */
+  margin-top: 20px; /* 可以根据需要调整上边距 */
 }
 
 .Books{
