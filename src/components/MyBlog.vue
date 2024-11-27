@@ -69,6 +69,7 @@
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 800px; background-color: #1a1a1a">
         <h2>Game Section</h2>
+        <h3>There are some games I played:</h3>
         <ThreeDCarousel />
       </div>
 
@@ -638,4 +639,11 @@ export default {
   margin-bottom: 20px;
 }
 
+.Books{
+
+}
+
+.Music{
+  
+}
 </style>

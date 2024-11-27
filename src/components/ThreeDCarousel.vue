@@ -8,8 +8,16 @@
         :class="{ 'active': index === currentIndex }"
         :style="getItemStyle(index)"
         @mouseenter="handleMouseEnter(index)"
-        @mouseleave="handleMouseLeave(index)">
-        <img :src="image" :alt="`Slide ${index + 1}`" />
+        @mouseleave="handleMouseLeave">
+        <img :src="image.url" :alt="image.title" />
+        <div class="image-overlay" v-show="hoveredIndex === index">
+          <div class="title-container">
+            <a :href="image.link" target="_blank" class="game-title-link">
+              {{ image.title }}
+              <span class="arrow">↗</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
     <button class="carousel-button prev" @click="prevSlide">←</button>
@@ -24,15 +32,40 @@ export default {
     return {
       currentIndex: 0,
       images: [
-        'https://images.unsplash.com/photo-1441974231531-c6227db76b6e',
-        'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05',
-        'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d',
-        'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07',
-        '/img/banana.jpg',
-        'https://images.unsplash.com/photo-1469474968028-56623f02e42e'
+        {
+          url: '/img/games/rdr.jpg',
+          title: 'Red Dead Redemption 2',
+          link: 'https://store.steampowered.com/app/1174180/Red_Dead_Redemption_2/'
+        },
+        {
+          url: '/img/games/gow.jpg',
+          title: 'God of War',
+          link: 'https://www.playstation.com/en-sg/games/god-of-war-ragnarok/'
+        },
+        {
+          url: '/img/games/tlou.jpg',
+          title: 'The Last of Us',
+          link: 'https://www.playstation.com/en-sg/games/the-last-of-us-part-i/'
+        },
+        {
+          url: '/img/games/sekiro.png',
+          title: 'Sekiro',
+          link: 'https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition/'
+        },
+        {
+          url: '/img/games/elden.png',
+          title: 'Elden Ring',
+          link: 'https://store.steampowered.com/app/1245620/Elden_Ring/'
+        },
+        {
+          url: '/img/games/hk.jpg',
+          title: 'Hollow Knight',
+          link: 'https://store.steampowered.com/app/367520/Hollow_Knight/'
+        }
       ],
       rotationY: 0,
-      hoveredIndex: null
+      hoveredIndex: null,
+      autoSlideInterval: null
     }
   },
   computed: {
@@ -59,9 +92,11 @@ export default {
     },
     handleMouseEnter(index) {
       this.hoveredIndex = index
+      this.stopAutoSlide()
     },
     handleMouseLeave() {
       this.hoveredIndex = null
+      this.startAutoSlide()
     },
     nextSlide() {
       this.currentIndex = (this.currentIndex + 1) % this.images.length
@@ -70,7 +105,21 @@ export default {
     prevSlide() {
       this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length
       this.rotationY += this.anglePerItem
+    },
+    startAutoSlide() {
+      this.autoSlideInterval = setInterval(() => {
+        this.nextSlide()
+      }, 3000)
+    },
+    stopAutoSlide() {
+      clearInterval(this.autoSlideInterval)
     }
+  },
+  mounted() {
+    this.startAutoSlide()
+  },
+  beforeDestroy() {
+    this.stopAutoSlide()
   }
 }
 </script>
@@ -102,6 +151,35 @@ export default {
   transition: all 0.3s ease;
   cursor: pointer;
   transform-style: preserve-3d;
+  overflow: hidden;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.image-title {
+  color: white;
+  font-size: 14px;
+  margin: 0;
+  text-align: left;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .carousel-item img {
@@ -142,5 +220,47 @@ export default {
 
 .next {
   right: 20px;
+}
+
+.carousel-item:hover img {
+  filter: blur(2px);
+}
+
+.title-container {
+  position: relative;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.game-title-link {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  padding-right: 20px; /* 为箭头留出空间 */
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.7); /* 虚线 */
+  max-width: 170px; /* 确保文字不会超出范围 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.arrow {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.game-title-link:hover {
+  color: #66ccff; /* 鼠标悬浮时改变颜色 */
+  border-bottom-color: #66ccff;
+}
+
+.game-title-link:hover .arrow {
+  color: #66ccff;
 }
 </style> 
