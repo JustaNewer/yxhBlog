@@ -69,6 +69,7 @@
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 800px; background-color: #1a1a1a">
         <h2>Game Section</h2>
+        <ThreeDCarousel />
       </div>
 
       <!-- Books Section -->
@@ -86,11 +87,13 @@
 
 <script>
 import FloatingDots from './FloatingDots.vue'
+import ThreeDCarousel from './ThreeDCarousel.vue'
 
 export default {
   name: 'MyBlog',
   components: {
-    FloatingDots
+    FloatingDots,
+    ThreeDCarousel
   },
   data() {
     return {
@@ -459,7 +462,7 @@ export default {
   border-radius: 50%; /* 圆形 */
   top :200px; /* 垂直居中 */
   left: 50%; /* 水平居中 */
-  transform: translate(-50%, -50%); /* 使其真正居��� */
+  transform: translate(-50%, -50%); /* 使其真正居中 */
   z-index: -1;
 }
 
@@ -619,6 +622,20 @@ export default {
 .name-card {
   z-index: 2;
   /* ... 其他样式保持不变 ... */
+}
+
+.Game {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.Game h2 {
+  font-size: 2.5em;
+  color: #ffffff;
+  margin-bottom: 20px;
 }
 
 </style>
