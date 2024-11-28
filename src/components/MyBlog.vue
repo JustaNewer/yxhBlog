@@ -69,9 +69,10 @@
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 1600px; background-color: #1a1a1a">
         <h2>Game Section</h2>
-        <h3 style="top: 100px; left: -500px; font-size: 1.5em;">There are some games I played:</h3>
+        <h3 style="top: 100px; left: -600px; font-size: 1.5em;">There are some games I played:</h3>
         <div class="game-content">
           <ThreeDCarousel />
+          <h3 style="top: -125px; left: -600px; font-size: 1.5em;">My thoughts on the games:</h3>
           <AnimatedTestimonials class="testimonials-section" />
         </div>
 
@@ -682,7 +683,7 @@ export default {
   height: 300px;
   align-self: flex-start; /* 靠左对齐 */
   margin-left: 50px; /* 距离左边界50px */
-  margin-top: 20px; /* 可以根据需要调整上边距 */
+  margin-top: -125px; /* 可以根据需要调整上边距 */
 }
 
 .Books{
