@@ -208,7 +208,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.1);
+    background: rgb(231, 180, 69);
     border: none;
     width: 50px;
     height: 50px;

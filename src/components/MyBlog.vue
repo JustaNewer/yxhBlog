@@ -69,10 +69,23 @@
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 1600px; background-color: #1a1a1a">
         <h2>Game Section</h2>
-        <h3 style="top: 100px; left: -600px; font-size: 1.5em;">There are some games I played:</h3>
+        <h3 style="top: 145px; left: 20px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
         <div class="game-content">
-          <ThreeDCarousel />
-          <h3 style="top: -125px; left: -600px; font-size: 1.5em;">My thoughts on the games:</h3>
+          <div class="pin-wrapper">
+            <ThreeDPin title="/my-steam" href="https://steamcommunity.com/id/gamerjky/">
+              <div class="pin-inner-content">
+                <h3 class="pin-title">My steam account</h3>
+                <div class="pin-description">
+                  <span>you can connect with me on steam.</span>
+                </div>
+                <div class="pin-gradient"></div>
+              </div>
+            </ThreeDPin>
+          </div>
+          <div class="carousel-background"></div>
+          <ThreeDCarousel style="z-index: 10; top: 25px; left: 300px;"/>
+          <h3 style="top: -80px; left: -600px; font-size: 1.5em;">My thoughts on the games:</h3>
+          <div class="testimonials-background"></div>
           <AnimatedTestimonials class="testimonials-section" />
         </div>
 
@@ -95,13 +108,15 @@
 import FloatingDots from './FloatingDots.vue'
 import ThreeDCarousel from './ThreeDCarousel.vue'
 import AnimatedTestimonials from './AnimatedTestimonials.vue'
+import ThreeDPin from './3DPin.vue'
 
 export default {
   name: 'MyBlog',
   components: {
     FloatingDots,
     ThreeDCarousel,
-    AnimatedTestimonials
+    AnimatedTestimonials,
+    ThreeDPin
   },
   data() {
     return {
@@ -221,7 +236,7 @@ export default {
   border: none; /* 去掉边框 */
   border-radius: 20px; /* 圆角矩形 */
   padding: 10px 20px; /* 按钮内边距 */
-  cursor: pointer; /* 鼠标悬停时显示手型 */
+  cursor: pointer; /* 鼠标悬时显示手型 */
   transition: background-color 0.3s ease, transform 0.2s ease; /* 添加动画效果 */
 }
 
@@ -626,7 +641,7 @@ export default {
   z-index: 1;
 }
 
-/* 确保 name-card 在浮动点之上 */
+/* 确保 name-card 在浮点之上 */
 .name-card {
   z-index: 2;
   /* ... 其他样式保持不变 ... */
@@ -686,11 +701,87 @@ export default {
   margin-top: -125px; /* 可以根据需要调整上边距 */
 }
 
+
 .Books{
 
 }
 
 .Music{
   
+}
+
+.testimonials-background {
+  position: absolute;
+  width: 900px;
+  height: 400px;
+  background-color: rgba(255, 165, 0,0.5); /* 半透明橙色 */
+  border-radius: 20px;
+  top:480px;
+  left: 0px;
+  z-index: 1;
+}
+
+.testimonials-section {
+  position: relative;
+  z-index: 2; /* 确保内容在背景之上 */
+}
+
+.carousel-background {
+  position: absolute;
+  width: 1000px;
+  height: 390px;
+  background-color: rgba(82, 146, 255,0.5);
+  border-radius: 20px;
+  top: 50px;
+  right: 5px;
+  z-index: -1;
+}
+
+/* 确保轮播图在背景上方 */
+:deep(.ThreeDCarousel) {
+  position: relative;
+  z-index: 2;
+}
+
+.pin-wrapper {
+  position: absolute;
+  width: 390px;
+  height: 390px;
+  top: 50px;
+  left: 50px;
+  z-index: 2;
+}
+
+.pin-inner-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pin-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0 0 8px 0;
+  padding: 0;
+}
+
+.pin-description {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.pin-gradient {
+  flex: 1;
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 8px;
+  background-image: url('/img/steamacc.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  aspect-ratio: 16/9; /* 或根据您的图片实际比例调整 */
 }
 </style>

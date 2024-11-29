@@ -260,7 +260,7 @@ export default {
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: rgba(102, 204, 255, 0.2);
+  background: rgb(40, 40, 40);
   color: gray;
   font-size: 20px;
   cursor: pointer;
