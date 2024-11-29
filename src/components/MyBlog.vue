@@ -76,12 +76,26 @@
               <div class="pin-inner-content">
                 <h3 class="pin-title">My steam account</h3>
                 <div class="pin-description">
-                  <span>you can connect with me on steam.</span>
+                  <span>You can add my steam friend if you want to play game on steamwith me.</span>
                 </div>
                 <div class="pin-gradient"></div>
               </div>
             </ThreeDPin>
           </div>
+          
+          <!-- 新增的第二个pin-wrapper -->
+          <div class="pin-wrapper2">
+            <ThreeDPin title="/my-games" href="#">
+              <div class="pin-inner-content2">
+                <h3 class="pin-title2">My playstation account</h3>
+                <div class="pin-description2">
+                  <span>You can add my playstation friend if you want to play game on playstation with me.</span>
+                </div>
+                <div class="pin-gradient2"></div>
+              </div>
+            </ThreeDPin>
+          </div>
+
           <div class="carousel-background"></div>
           <ThreeDCarousel style="z-index: 10; top: 25px; left: 300px;"/>
           <h3 style="top: -80px; left: -600px; font-size: 1.5em;">My thoughts on the games:</h3>
@@ -783,5 +797,14 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   aspect-ratio: 16/9; /* 或根据您的图片实际比例调整 */
+}
+
+.pin-wrapper2 {
+  position: absolute;
+  width: 390px;
+  height: 390px;
+  top: 500px;
+  right: 100px;
+  z-index: 2;
 }
 </style>
