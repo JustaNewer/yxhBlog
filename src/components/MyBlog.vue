@@ -68,11 +68,11 @@
     <div class="GBM">
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 1600px; background-color: #1a1a1a">
-        <h2>Game Section</h2>
-        <h3 style="top: 145px; left: 20px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
-        <div class="game-content">
+        <div class="GameTop"></div>
+          <h3 style="top: 145px; left: -50px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
+          <div class="game-content">
           <div class="pin-wrapper">
-            <ThreeDPin title="/my-steam" href="https://steamcommunity.com/id/gamerjky/">
+            <ThreeDPin title="my-steam" href="https://steamcommunity.com/id/gamerjky/">
               <div class="pin-inner-content">
                 <h3 class="pin-title">My steam account</h3>
                 <div class="pin-description">
@@ -85,7 +85,7 @@
           
           <!-- 新增的第二个pin-wrapper -->
           <div class="pin-wrapper2">
-            <ThreeDPin title="/my-games" href="#">
+            <ThreeDPin title="my-playstation" href="#">
               <div class="pin-inner-content2">
                 <h3 class="pin-title2">My playstation account</h3>
                 <div class="pin-description2">
@@ -97,10 +97,13 @@
           </div>
 
           <div class="carousel-background"></div>
-          <ThreeDCarousel style="z-index: 10; top: 25px; left: 300px;"/>
+          <ThreeDCarousel style="z-index: 10; top: 25px; left: 200px;"/>
           <h3 style="top: -80px; left: -600px; font-size: 1.5em;">My thoughts on the games:</h3>
           <div class="testimonials-background"></div>
           <AnimatedTestimonials class="testimonials-section" />
+          <h3 style="top: 100px;  font-size: 1.8em;">game images</h3>
+          <div class="infi-background"></div>
+          <InfiniteMovingCards class="infinite-cards" speed="slow" />
         </div>
 
       </div>
@@ -123,6 +126,7 @@ import FloatingDots from './FloatingDots.vue'
 import ThreeDCarousel from './ThreeDCarousel.vue'
 import AnimatedTestimonials from './AnimatedTestimonials.vue'
 import ThreeDPin from './3DPin.vue'
+import InfiniteMovingCards from './InfiniteMovingCards.vue'
 
 export default {
   name: 'MyBlog',
@@ -130,7 +134,8 @@ export default {
     FloatingDots,
     ThreeDCarousel,
     AnimatedTestimonials,
-    ThreeDPin
+    ThreeDPin,
+    InfiniteMovingCards
   },
   data() {
     return {
@@ -699,6 +704,15 @@ export default {
   margin-bottom: 20px;
 }
 
+.GameTop{
+  width: 100%;
+  height: 95px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+}
+
 .game-content {
   width: 100%;
   display: flex;
@@ -726,7 +740,7 @@ export default {
 
 .testimonials-background {
   position: absolute;
-  width: 900px;
+  width: 1000px;
   height: 400px;
   background-color: rgba(255, 165, 0,0.5); /* 半透明橙色 */
   border-radius: 20px;
@@ -747,7 +761,7 @@ export default {
   background-color: rgba(82, 146, 255,0.5);
   border-radius: 20px;
   top: 50px;
-  right: 5px;
+  right: 200px;
   z-index: -1;
 }
 
@@ -804,7 +818,23 @@ export default {
   width: 390px;
   height: 390px;
   top: 500px;
-  right: 100px;
+  right: 150px;
   z-index: 2;
+}
+
+.infinite-cards {
+  position: absolute;
+  top: 1100px;
+  z-index: 2;
+}
+
+.infi-background {
+  position: absolute;
+  width: 100%;
+  height: 390px;
+  background-color: rgb(45, 97, 47);
+  top: 1000px;
+  z-index: -1;
+  border-radius: 20px;
 }
 </style>
