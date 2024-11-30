@@ -68,7 +68,9 @@
     <div class="GBM">
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 1600px; background-color: #1a1a1a">
-        <div class="GameTop"></div>
+        <div class="GameTop">
+          <h1 style="text-align: center; font-size: 3em;">G a m e s</h1>
+        </div>
           <h3 style="top: 145px; left: -50px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
           <div class="game-content">
           <div class="pin-wrapper">
@@ -101,7 +103,7 @@
           <h3 style="top: -80px; left: -600px; font-size: 1.5em;">My thoughts on the games:</h3>
           <div class="testimonials-background"></div>
           <AnimatedTestimonials class="testimonials-section" />
-          <h3 style="top: 100px;  font-size: 1.8em;">game images</h3>
+          <h3 style="top: 100px;  font-size: 1.5em;">game images</h3>
           <div class="infi-background"></div>
           <InfiniteMovingCards class="infinite-cards" speed="slow" />
         </div>
@@ -740,7 +742,7 @@ export default {
 
 .testimonials-background {
   position: absolute;
-  width: 1000px;
+  width: 900px;
   height: 400px;
   background-color: rgba(255, 165, 0,0.5); /* 半透明橙色 */
   border-radius: 20px;
@@ -761,7 +763,7 @@ export default {
   background-color: rgba(82, 146, 255,0.5);
   border-radius: 20px;
   top: 50px;
-  right: 200px;
+  right: 100px;
   z-index: -1;
 }
 
@@ -832,9 +834,8 @@ export default {
   position: absolute;
   width: 100%;
   height: 390px;
-  background-color: rgb(45, 97, 47);
   top: 1000px;
-  z-index: -1;
+  background-color: rgb(37, 88, 45);
   border-radius: 20px;
 }
 </style>
