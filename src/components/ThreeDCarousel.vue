@@ -134,7 +134,7 @@
   <style scoped>
   .carousel-container {
     position: relative;
-    width: 100%;
+    width: 70%;
     height: 500px;
     perspective: 1000px;
     overflow: hidden;
@@ -224,11 +224,11 @@
   }
   
   .prev {
-    left: 350px;
+    left: 125px;
   }
   
   .next {
-    right: 350px;
+    right: 125px;
   }
   
   .carousel-item:hover img {

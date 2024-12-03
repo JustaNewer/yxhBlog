@@ -5,13 +5,12 @@
       <h1 class="header-name">Jack Ye</h1>
       <div class="button-container">
         <button class="nav-button" @click="scrollToTop">Home</button>
+        <button class="nav-button" @click="scrollTo('Favorite')">Favorite</button>
         <button class="nav-button" @click="scrollTo('Game')">Game</button>
         <button class="nav-button" @click="scrollTo('Books')">Books</button>
         <button class="nav-button" @click="scrollTo('Music')">Music</button>
         <button class="github-button" @click="goToGitHub"></button>
-        <button class="steam-button" @click="goToSteam"></button>
       </div>
-      <hr class="divider" />
     </div>
 
     <div class="CardContainer">
@@ -65,20 +64,22 @@
       <div class="icon ps" @mouseenter="stopIconMovement('ps')" @mouseleave="startIconMovement('ps')" style="transform: rotate(270deg) translate(325px) rotate(0deg);"></div>
     </div>
 
-    <div class="GBM">
+    <!-- Add Favorite Section -->
+    <div id="Favorite" class="Favorite" style="width: 100%; height: 800px; background-color: #1a1a1a;">
+      <h2>Favorite Section</h2>
+    </div>
+
+    <div class="GBM" style="top: 1600px;">
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 1600px; background-color: #1a1a1a">
-        <div class="GameTop">
-          <h1 style="text-align: center; font-size: 3em;">G a m e s</h1>
-        </div>
-          <h3 style="top: 145px; left: -50px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
-          <div class="game-content">
+        <h3 style="top: 145px; left: -50px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
+        <div class="game-content">
           <div class="pin-wrapper">
             <ThreeDPin title="my-steam" href="https://steamcommunity.com/id/gamerjky/">
-              <div class="pin-inner-content">
-                <h3 class="pin-title">My steam account</h3>
-                <div class="pin-description">
-                  <span>You can add my steam friend if you want to play game on steamwith me.</span>
+              <div class="pin-inner-content2">
+                <h3 class="pin-title2">My steam account</h3>
+                <div class="pin-description2">
+                  <span>You can search my id: <span style="color: yellow;">GamerJKY</span> to add my steam friend if you want to play game on steam with me.</span>
                 </div>
                 <div class="pin-gradient"></div>
               </div>
@@ -87,11 +88,11 @@
           
           <!-- 新增的第二个pin-wrapper -->
           <div class="pin-wrapper2">
-            <ThreeDPin title="my-playstation" href="#">
+            <ThreeDPin title="my-playstation" href="https://psnine.com/psnid/xh_jky">
               <div class="pin-inner-content2">
                 <h3 class="pin-title2">My playstation account</h3>
                 <div class="pin-description2">
-                  <span>You can add my playstation friend if you want to play game on playstation with me.</span>
+                  <span>You can search my id: <span style="color: yellow;">xh_jky</span> to add my playstation friend if you want to play game on playstation with me.<br></span>
                 </div>
                 <div class="pin-gradient2"></div>
               </div>
@@ -227,16 +228,20 @@ export default {
 }
 
 .BlogTop {
-  width: 100%;
-  position: fixed; /* 固定在页面顶部 */
-  top: 0;
-  left: 0;
-  background-color: #000000; /* 背景色与页面一致 */
+  width: 90%;
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 20px;
-  z-index: 10; /* 确保在最顶层 */
-  display: flex;
-  align-items: center; /* 垂直居中对齐 */
   z-index: 20;
+  display: flex;
+  align-items: center;
+  border-radius: 50px 50px 50px 50px;
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .header-name {
@@ -573,34 +578,10 @@ export default {
   z-index: 3;
 }
 
-.steam-button {
-  background-image: url('/img/steam2.png'); /* Steam 图标 */
-  background-size: contain;
-  border-radius: 12px;
-  border: none;
-  width: 60px;
-  height: 60px;
-  position: absolute;
-  top: 20px;
-  right: 120px; /* GitHub 按钮的右边距为30px，GitHub按钮宽度为60px */
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-/* 鼠标悬停时的效果 */
-.steam-button:hover {
-  transform: scale(1.1); /* 悬停时略微放大 */
-}
-
-/* 鼠标点击时的效果 */
-.steam-button:active {
-  transform: scale(0.95); /* 点击时缩小 */
-}
-
 .github-button{
   background-image: url('/img/github.png');
   background-size: contain;
-  border-radius: 12px;
+  border-radius: 50px;
   border: none;
   width: 60px;
   height: 60px;
@@ -706,15 +687,6 @@ export default {
   margin-bottom: 20px;
 }
 
-.GameTop{
-  width: 100%;
-  height: 95px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: black;
-}
-
 .game-content {
   width: 100%;
   display: flex;
@@ -789,20 +761,6 @@ export default {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.pin-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  margin: 0 0 8px 0;
-  padding: 0;
-}
-
-.pin-description {
-  font-size: 14px;
-  margin: 0;
-  padding: 0;
-}
-
 .pin-gradient {
   flex: 1;
   width: 100%;
@@ -815,12 +773,25 @@ export default {
   aspect-ratio: 16/9; /* 或根据您的图片实际比例调整 */
 }
 
+.pin-gradient2{
+  flex: 1;
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 8px;
+  background-image: url('/img/psacc.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  aspect-ratio: 16/9; /* 或根据您的图片实际比例调整 */
+}
+
 .pin-wrapper2 {
   position: absolute;
   width: 390px;
   height: 390px;
   top: 500px;
   right: 150px;
+  
   z-index: 2;
 }
 
@@ -837,5 +808,30 @@ export default {
   top: 1000px;
   background-color: rgb(37, 88, 45);
   border-radius: 20px;
+}
+
+.divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+}
+
+.Favorite {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 800px;
 }
 </style>

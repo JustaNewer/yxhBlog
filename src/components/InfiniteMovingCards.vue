@@ -34,12 +34,13 @@ export default {
         fast: '20s'
       },
       items: [
-        { imgSrc: '/img/InfiQue/steam2.png', alt: 'Game Image 1' },
-        { imgSrc: '/img/InfiQue/steam2.png', alt: 'Game Image 2' },
-        { imgSrc: '/img/InfiQue/steam2.png', alt: 'Game Image 3' },
-        { imgSrc: '/img/InfiQue/steam2.png', alt: 'Game Image 4' },
-        { imgSrc: '/img/InfiQue/steam2.png', alt: 'Game Image 5' },
-        { imgSrc: '/img/InfiQue/steam2.png', alt: 'Game Image 6' }
+        { imgSrc: '/img/InfiQue/rdr2.jpg', alt: 'Game Image 1' },
+        { imgSrc: '/img/InfiQue/gow.jpg', alt: 'Game Image 2' },
+        { imgSrc: '/img/InfiQue/tlou.jpg', alt: 'Game Image 3' },
+        { imgSrc: '/img/InfiQue/tlou2.jpg', alt: 'Game Image 4' },
+        { imgSrc: '/img/InfiQue/er1.jpg', alt: 'Game Image 5' },
+        { imgSrc: '/img/InfiQue/skr.jpg', alt: 'Game Image 6' },
+        { imgSrc: '/img/InfiQue/er2.jpg', alt: 'Game Image 7' }
       ],
       isPaused: false
     }

@@ -74,7 +74,7 @@ export default {
 .pin-link {
   position: absolute;
   left: 50%;
-  top: -60px;
+  top: 0px;
   transform: translateX(-50%);
   color: #66ccff;
   text-decoration: none;
@@ -84,13 +84,6 @@ export default {
   flex-direction: column;
   align-items: center;
   z-index: 10;
-}
-
-.link-line {
-  width: 2px;
-  height: 30px;
-  background: #66ccff;
-  margin-bottom: 8px;
 }
 
 .link-text {
