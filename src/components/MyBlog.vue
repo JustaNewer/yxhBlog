@@ -65,11 +65,77 @@
     </div>
 
     <!-- Add Favorite Section -->
-    <div id="Favorite" class="Favorite" style="width: 100%; height: 800px; background-color: #1a1a1a;">
-      <h2>Favorite Section</h2>
+    <div id="Favorite" class="Favorite" style="width: 100%; height: 1300px; background-color: #1a1a1a;">
+      <h2 class="favorite-title"></h2>
+      <div class="favorite-content">
+        <!-- First Row -->
+        <div class="favorite-row">
+          <DirectionAwareHover 
+            imageUrl="/img/miyazaki.png"
+            alt="miyazaki"
+          >
+            <h3 class="text-xl font-bold">Hidetaka Miyazaki</h3>
+            <p class="text-sm mt-2">Hidetaka Miyazaki is a game designer at FromSoftware. 
+              He is the mastermind behind many games, including Elden Ring, Sekiro, and Bloodborne. 
+              The epic sense of Elden Ring captivated me so deeply that I couldn't pull myself away while playing.
+               He is probably the most creative designer I have ever seen.</p>
+          </DirectionAwareHover>
+
+          <DirectionAwareHover 
+            imageUrl="/img/ps5.png"
+            alt="ps5"
+          >
+            <h3 class="text-xl font-bold">Playstation 5</h3>
+            <p class="text-sm mt-2">The PS5 is currently the platform I use the most for gaming. 
+              It offers a wide variety of high-quality games, such as Gran Turismo and The Last of Us. 
+              Combined with the controller's refined haptic feedback, it provides an incredibly immersive experience.</p>
+          </DirectionAwareHover>
+
+          <DirectionAwareHover 
+            imageUrl="/img/jojo.png"
+            alt="GitHub"
+          >
+            <h3 class="text-xl font-bold">JOJO's Bizarre Adventure</h3>
+            <p class="text-sm mt-2">JOJO's Bizarre Adventure is a manga series created by Hirohiko Araki. 
+              It follows the story of the Joestar family, who are cursed with the power of the JoJo family's spirit. 
+              The series is known for its unique and diverse characters, as well as its complex plot and philosophical themes.</p>
+          </DirectionAwareHover>
+        </div>
+
+        <!-- Second Row -->
+        <div class="favorite-row">
+          <DirectionAwareHover 
+            imageUrl="/img/mj.png"
+            alt="Michael Jackson"
+          >
+            <h3 class="text-xl font-bold">Michael Jackson</h3>
+            <p class="text-sm mt-2">Michael Jackson is a legendary singer and dancer. 
+              His music and dance moves have inspired countless artists and fans. 
+              His unique voice and charismatic performances have left a lasting impact on the music industry.
+              I love his songs like Beat It, Thriller, and Dangerous. 
+              Overall, every one of his songs is worth listening to.</p>
+          </DirectionAwareHover>
+
+          <DirectionAwareHover 
+            imageUrl="/img/ps.png"
+            alt="PlayStation Logo"
+          >
+            <h3 class="text-xl font-bold">PS Games</h3>
+            <p class="text-sm mt-2">Games I love to play</p>
+          </DirectionAwareHover>
+
+          <DirectionAwareHover 
+            imageUrl=""
+            alt="PlayStation Network"
+          >
+            <h3 class="text-xl font-bold">PSN</h3>
+            <p class="text-sm mt-2">My gaming network</p>
+          </DirectionAwareHover>
+        </div>
+      </div>
     </div>
 
-    <div class="GBM" style="top: 1600px;">
+    <div class="GBM" style="top: 2400px;">
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 1600px; background-color: #1a1a1a">
         <h3 style="top: 145px; left: -50px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
@@ -112,7 +178,7 @@
       </div>
 
       <!-- Books Section -->
-      <div id="Books" class="Books" style="width: 100%; height: 800px; background-color: #1a1a1a;">
+      <div id="Books" class="Books" style="width: 100%; height: 1200px; background-color: #1a1a1a;">
         <h2>Books Section</h2>
       </div>
 
@@ -130,6 +196,7 @@ import ThreeDCarousel from './ThreeDCarousel.vue'
 import AnimatedTestimonials from './AnimatedTestimonials.vue'
 import ThreeDPin from './3DPin.vue'
 import InfiniteMovingCards from './InfiniteMovingCards.vue'
+import DirectionAwareHover from './DirectionAwareHover.vue'
 
 export default {
   name: 'MyBlog',
@@ -138,7 +205,8 @@ export default {
     ThreeDCarousel,
     AnimatedTestimonials,
     ThreeDPin,
-    InfiniteMovingCards
+    InfiniteMovingCards,
+    DirectionAwareHover
   },
   data() {
     return {
@@ -258,7 +326,7 @@ export default {
 
 .nav-button {
   background-color: #3d3d3d; /* 按钮背景色 */
-  color: #ffffff; /* 按钮文字颜色 */
+  color: #ffffff; /* 按钮文字颜��� */
   border: none; /* 去掉边框 */
   border-radius: 20px; /* 圆角矩形 */
   padding: 10px 20px; /* 按钮内边距 */
@@ -328,7 +396,7 @@ export default {
 
 .first-name {
   font-size: 2.5em; /* 字体大小，调整为较小的值 */
-  color: orange; /* 字体颜色改为橙色 */
+  color: orange; /* 字体颜色改为色 */
   margin: 0 5px; /* 控制两个名字之间的间距 */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   transition: opacity 0.5s ease, box-shadow 0.3s ease; /* 添加淡入淡出效果和阴影效果 */
@@ -435,7 +503,7 @@ export default {
 
 .GBM{
   width: 100%;
-  top: 800px;
+  top: 2400px;
   position: absolute;
 }
 
@@ -640,7 +708,7 @@ export default {
 }
 
 .floating-background {
-  z-index: 1;
+  z-index: 2;
 }
 
 /* 确保 name-card 在浮点之上 */
@@ -659,6 +727,7 @@ export default {
   background-repeat: repeat; /* 图片重复 */
   background-size: 100px; /* 控制重复图片的大小 */
   position: relative; /* 为遮罩层提供定位上下文 */
+  top: -300px;
 }
 
 /* 添加一个半透明遮罩层，使背景不会影响内容的可读性 */
@@ -705,11 +774,13 @@ export default {
 
 
 .Books{
-
+  position: relative; 
+  top: 800px;
 }
 
 .Music{
-  
+  position: relative; 
+  top: 1600px;
 }
 
 .testimonials-background {
@@ -739,9 +810,9 @@ export default {
   z-index: -1;
 }
 
-/* 确保轮播图在背景上方 */
+/* 确保轮播图��背景上方 */
 :deep(.ThreeDCarousel) {
-  position: relative;
+  position: absolute;
   z-index: 2;
 }
 
@@ -833,5 +904,50 @@ export default {
   align-items: center;
   position: absolute;
   top: 800px;
+  background-image: url('/img/bgwb.jpg');
+  background-repeat: repeat;
+  background-size: auto;
+  width: 100%;
+}
+
+.favorite-title {
+  font-size: 2.5em;
+  color: #ffffff;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.favorite-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 100px;
+  padding: 2rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.favorite-row {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  width: 100%;
 }
 </style>
