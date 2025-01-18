@@ -133,7 +133,7 @@
     <div class="GBM" style="top: 2400px;">
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 1600px; background-color: #1a1a1a">
-        <h3 style="position: absolute; top: 95px; left: 520px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
+       
         <div class="game-content">
           <div class="pin-wrapper">
             <ThreeDPin title="my-steam" href="https://steamcommunity.com/id/gamerjky/">
