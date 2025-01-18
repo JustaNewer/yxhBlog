@@ -62,6 +62,7 @@ export default {
   data() {
     return {
       currentIndex: 0,
+      autoPlayInterval: null,
       testimonials: [
         {
           attribute: 'PAINFUL',
@@ -110,11 +111,30 @@ export default {
     nextTestimonial() {
       if (this.currentIndex < this.testimonials.length - 1) {
         this.currentIndex++
+      } else {
+        // Reset to first slide when reaching the end
+        this.currentIndex = 0
       }
     },
     getZIndex(index) {
       return this.testimonials.length - Math.abs(this.currentIndex - index)
+    },
+    startAutoPlay() {
+      this.autoPlayInterval = setInterval(() => {
+        this.nextTestimonial()
+      }, 5000) // Change slide every 5 seconds
+    },
+    stopAutoPlay() {
+      if (this.autoPlayInterval) {
+        clearInterval(this.autoPlayInterval)
+      }
     }
+  },
+  mounted() {
+    this.startAutoPlay()
+  },
+  beforeUnmount() {
+    this.stopAutoPlay()
   }
 }
 </script>
@@ -130,8 +150,10 @@ export default {
 
 .testimonials-wrapper {
   position: relative;
-  width: 100%;
-  height: 100%;
+  margin: auto;
+  top: 15px;
+  width: 90%;
+  height: 90%;
   display: flex;
   gap: 40px;
 }
@@ -248,7 +270,7 @@ export default {
 
 .navigation-arrows {
   position: absolute;
-  bottom: -5px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;

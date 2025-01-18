@@ -224,11 +224,11 @@
   }
   
   .prev {
-    left: 125px;
+    left: 30px;
   }
   
   .next {
-    right: 125px;
+    right: 30px;
   }
   
   .carousel-item:hover img {

@@ -7,7 +7,7 @@
         <button class="nav-button" @click="scrollToTop">Home</button>
         <button class="nav-button" @click="scrollTo('Favorite')">Favorite</button>
         <button class="nav-button" @click="scrollTo('Game')">Game</button>
-        <button class="nav-button" @click="scrollTo('Books')">Books</button>
+        <button class="nav-button" @click="scrollTo('Books')">Investment</button>
         <button class="nav-button" @click="scrollTo('Music')">Music</button>
         <button class="github-button" @click="goToGitHub"></button>
       </div>
@@ -117,20 +117,15 @@
           </DirectionAwareHover>
 
           <DirectionAwareHover 
-            imageUrl="/img/ps.png"
-            alt="PlayStation Logo"
+            imageUrl="/img/bitcoin.jpg"
+            alt="Bitcoin Logo"
           >
-            <h3 class="text-xl font-bold">PS Games</h3>
-            <p class="text-sm mt-2">Games I love to play</p>
+            <h3 class="text-xl font-bold">Btccoin&BlockChain</h3>
+            <p class="text-sm mt-2">I have been learning about blockchain technology and cryptocurrencies for a long time. 
+              I believe that blockchain technology will be the future of the world, and I am very interested in it.</p>
           </DirectionAwareHover>
 
-          <DirectionAwareHover 
-            imageUrl=""
-            alt="PlayStation Network"
-          >
-            <h3 class="text-xl font-bold">PSN</h3>
-            <p class="text-sm mt-2">My gaming network</p>
-          </DirectionAwareHover>
+
         </div>
       </div>
     </div>
@@ -138,7 +133,7 @@
     <div class="GBM" style="top: 2400px;">
       <!-- Game Section -->
       <div id="Game" class="Game" style="width: 100%; height: 1600px; background-color: #1a1a1a">
-        <h3 style="top: 145px; left: -50px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
+        <h3 style="position: absolute; top: 95px; left: 520px; font-size: 1.5em; z-index: 5;">There are some games I played:</h3>
         <div class="game-content">
           <div class="pin-wrapper">
             <ThreeDPin title="my-steam" href="https://steamcommunity.com/id/gamerjky/">
@@ -165,26 +160,18 @@
             </ThreeDPin>
           </div>
 
-          <div class="carousel-background"></div>
-          <ThreeDCarousel style="z-index: 10; top: 25px; left: 200px;"/>
-          <h3 style="top: -80px; left: -600px; font-size: 1.5em;">My thoughts on the games:</h3>
-          <div class="testimonials-background"></div>
+
+          <ThreeDCarousel class="TDC"/>
           <AnimatedTestimonials class="testimonials-section" />
-          <h3 style="top: 100px;  font-size: 1.5em;">game images</h3>
           <div class="infi-background"></div>
           <InfiniteMovingCards class="infinite-cards" speed="slow" />
         </div>
 
       </div>
 
-      <!-- Books Section -->
-      <div id="Books" class="Books" style="width: 100%; height: 1200px; background-color: #1a1a1a;">
-        <h2>Books Section</h2>
-      </div>
-
-      <!-- Music Section -->
-      <div id="Music" class="Music" style="width: 100%; height: 800px; background-color: #1a1a1a;">
-        <h2>Music Section</h2>
+      <!-- Investment Section -->
+      <div id="Investment" class="Investment" style="width: 100%; height: 800px; background-color: #1a1a1a;">
+        <h2>Investment Section</h2>
       </div>
     </div>
   </div>
@@ -326,7 +313,7 @@ export default {
 
 .nav-button {
   background-color: #3d3d3d; /* 按钮背景色 */
-  color: #ffffff; /* 按钮文字颜��� */
+  color: #ffffff; /* 按钮文字颜色 */
   border: none; /* 去掉边框 */
   border-radius: 20px; /* 圆角矩形 */
   padding: 10px 20px; /* 按钮内边距 */
@@ -764,64 +751,44 @@ export default {
   gap: 50px; /* 控制轮播图和testimonials之间的距离 */
 }
 
+
+
+
+
+
+
+
 .testimonials-section {
-  width: 50%;
-  height: 300px;
-  align-self: flex-start; /* 靠左对齐 */
-  margin-left: 50px; /* 距离左边界50px */
-  margin-top: -125px; /* 可以根据需要调整上边距 */
-}
-
-
-.Books{
-  position: relative; 
-  top: 800px;
-}
-
-.Music{
-  position: relative; 
-  top: 1600px;
-}
-
-.testimonials-background {
   position: absolute;
-  width: 900px;
-  height: 400px;
+  left: -40px;
+  top: 500px;
+  width:70%;
+  height: 390px;
   background-color: rgba(255, 165, 0,0.5); /* 半透明橙色 */
   border-radius: 20px;
-  top:480px;
-  left: 0px;
-  z-index: 1;
-}
-
-.testimonials-section {
-  position: relative;
   z-index: 2; /* 确保内容在背景之上 */
 }
 
-.carousel-background {
+
+
+.TDC{
   position: absolute;
-  width: 1000px;
+  top: 70px;
+  right: 0px;
+  width: 65%;
   height: 390px;
   background-color: rgba(82, 146, 255,0.5);
   border-radius: 20px;
-  top: 50px;
-  right: 100px;
-  z-index: -1;
 }
 
-/* 确保轮播图��背景上方 */
-:deep(.ThreeDCarousel) {
-  position: absolute;
-  z-index: 2;
-}
+
 
 .pin-wrapper {
   position: absolute;
-  width: 390px;
+  width: 25%;
   height: 390px;
-  top: 50px;
-  left: 50px;
+  top: 70px;
+  left: 5px;
   z-index: 2;
 }
 
@@ -858,11 +825,10 @@ export default {
 
 .pin-wrapper2 {
   position: absolute;
-  width: 390px;
+  width: 25%;
   height: 390px;
-  top: 500px;
-  right: 150px;
-  
+  top: 550px;
+  right: 5px;
   z-index: 2;
 }
 
@@ -949,5 +915,9 @@ export default {
   justify-content: center;
   gap: 60px;
   width: 100%;
+}
+.Investment{
+  position: absolute; 
+  top: 1200px;
 }
 </style>
